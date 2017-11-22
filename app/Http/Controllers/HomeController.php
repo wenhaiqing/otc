@@ -54,11 +54,13 @@ class HomeController extends Controller
                 $result[$i]['min_qty'] = $res[$i]['min_qty'];
                 $result[$i]['max_qty'] = $res[$i]['max_qty'];
                 $result[$i]['price'] = $res[$i]['price'];
+                $result[$i]['url'] = 'https://www.firefoxotc.com';
             }elseif (isset($res[$i]['type'])){
                 $result[$i]['name'] = 'cex网';
                 $result[$i]['min_qty'] = 0;
                 $result[$i]['max_qty'] = $res[$i]['amount'];
                 $result[$i]['price'] = $res[$i]['price']*6.6125;
+                $result[$i]['url'] = 'https://cex.com/market/wkc_usdt';
             }else{
 
             }
