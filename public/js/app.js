@@ -45544,10 +45544,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             offset: 0,
             limit: 8
         };
-        axios.get('http://otc.xyz/api/otc', formData, {
+        axios.get('http://otc.zdxinfo.com/api/otc', formData, {
             headers: { 'X-Requested-With': 'XMLHttpRequest', 'Access-Control-Allow-Origin': '*' }
         }).then(function (response) {
-            //console.log(response.data);
+            console.log(response.data);
             _this.loadding = false;
             _this.otcs = response.data;
         });

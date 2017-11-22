@@ -88,7 +88,7 @@
             axios.get('http://otc.zdxinfo.com/api/otc',formData,{
                 headers: {'X-Requested-With': 'XMLHttpRequest','Access-Control-Allow-Origin':'*'},
             }).then(response=>{
-                //console.log(response.data);
+                console.log(response.data);
                 this.loadding = false;
                 this.otcs = response.data
             })
