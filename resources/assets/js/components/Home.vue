@@ -28,7 +28,7 @@
                                     {{otc.price}} CNY
                                 </div>
                                 <div data-v-45e29ae5="" class="trade_buy_col button_group el-col el-col-4">
-                                    <div data-v-45e29ae5="" class="buy"><a href="">购买</a></div>
+                                    <div data-v-45e29ae5="" class="buy"><a href="https://otc.firefoxotc.com">购买</a></div>
                                 </div>
                             </div>
                         </div>
