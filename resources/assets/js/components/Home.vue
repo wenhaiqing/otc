@@ -1,10 +1,8 @@
 <template>
     <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-
-                    <div data-v-45e29ae5="" data-v-b07140c2="" class="trade_buy">
+        <div class="row trade_content">
+            <div data-v-b07140c2="" class="left">
+                <div data-v-45e29ae5="" data-v-b07140c2="" class="trade_buy">
                         <div data-v-45e29ae5="" class="trade_buy_header">
                            卖方发布
                         </div>
@@ -35,42 +33,39 @@
                             </div>
                         </div>
 
-                        <div data-v-45e29ae5="" class="trade_list" v-for="wuyou in wuyous">
-                            <div data-v-45e29ae5="" class="trade_buy_item el-row">
-                                <div data-v-45e29ae5="" class="trade_buy_col user el-col el-col-5">
-                                    wanke.wylh.cc
-                                </div>
-                                <div data-v-45e29ae5="" class="trade_buy_col limit el-col el-col-3">
-                                    {{wuyou[1]}} OSC
-                                </div>
-                                <div data-v-45e29ae5="" class="trade_buy_col price el-col el-col-3">
-                                    {{wuyou[3]}} CNY
-                                </div>
-                                <div data-v-45e29ae5="" class="trade_buy_col button_group el-col el-col-4">
-                                    <div data-v-45e29ae5="" class="buy"><a href="https://wanke.wylh.cc/order/sell_order">购买</a></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div data-v-45e29ae5="" class="trade_list" v-for="cex in cexs[1]">
-                            <div data-v-45e29ae5="" class="trade_buy_item el-row">
-                                <div data-v-45e29ae5="" class="trade_buy_col user el-col el-col-5">
-                                    cex.com
-                                </div>
-                                <div data-v-45e29ae5="" class="trade_buy_col limit el-col el-col-3">
-                                    {{cex.amount}} OSC
-                                </div>
-                                <div data-v-45e29ae5="" class="trade_buy_col price el-col el-col-3">
-                                    {{cex.price*6.6125}} CNY
-                                </div>
-                                <div data-v-45e29ae5="" class="trade_buy_col button_group el-col el-col-4">
-                                    <div data-v-45e29ae5="" class="buy"><a href="https://cex.com">购买</a></div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
-                </div>
+            </div>
+            <div data-v-b07140c2="" class="right">
+                <div data-v-09c9f5fa="" data-v-b07140c2="" class="trade_sell">
+                    <div data-v-09c9f5fa="" class="trade_sell_header">
+                        买方发布
+                    </div>
+                    <div data-v-09c9f5fa="" class="trade_sell_title">
+                        <div data-v-09c9f5fa="" class="el-row">
+                            <div data-v-09c9f5fa="" class="trade_sell_title_item user el-col el-col-4">用户名</div>
+                            <div data-v-09c9f5fa="" class="trade_sell_title_item limit el-col el-col-10">限额</div>
+                            <div data-v-09c9f5fa="" class="trade_sell_title_item price el-col el-col-6">价格</div>
+                        </div>
+                    </div>
+
+                    <div v-show="loadding" class="loading"></div>
+                    <div data-v-45e29ae5="" class="trade_list" v-for="otcsell in otcsells" :key="otcsell.id">
+                        <div data-v-45e29ae5="" class="trade_buy_item el-row">
+                            <div data-v-45e29ae5="" class="trade_buy_col user el-col el-col-5">
+                                {{otcsell.name}}
+                            </div>
+                            <div data-v-45e29ae5="" class="trade_buy_col limit el-col el-col-3">
+                                {{otcsell.min_qty}}-{{otcsell.max_qty}} OSC
+                            </div>
+                            <div data-v-45e29ae5="" class="trade_buy_col price el-col el-col-3">
+                                {{otcsell.price}} CNY
+                            </div>
+                            <div data-v-45e29ae5="" class="trade_buy_col button_group el-col el-col-4">
+                                <div data-v-45e29ae5="" class="buy"><a :href="otcsell.url">出售</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
             </div>
         </div>
     </div>
@@ -78,46 +73,33 @@
 
 <script>
     export default {
-        mounted() {
-            this.loadding = true;
-            let formData={
-                crypto_currency:'OSC',
-                trade_currency:'CNY',
-                is_buy:false,
-                offset:0,
-                limit:8
+        mounted(){
+          this.getotc();
+        },
+        methods: {
+            getotc(){
+                this.loadding = true;
+                axios.get('http://otc.xyz/api/otc?s='+Math.random(),{
+                    headers: {'X-Requested-With': 'XMLHttpRequest','Access-Control-Allow-Origin':'*'},
+                }).then(response=>{
+                    //console.log(response.data);
+                    this.loadding = false;
+                    this.otcs = response.data.otc;
+                    this.otcsells = response.data.otcsell;
+                })
             }
-            axios.get('http://otc.zdxinfo.com/api/otc',formData,{
-                headers: {'X-Requested-With': 'XMLHttpRequest','Access-Control-Allow-Origin':'*'},
-            }).then(response=>{
-                console.log(response.data);
-                this.loadding = false;
-                this.otcs = response.data
-            })
-
-//            axios.get('http://otc.xyz/api/wuyou',formData,{
-//                headers: {'X-Requested-With': 'XMLHttpRequest','Access-Control-Allow-Origin':'*'},
-//            }).then(response=>{
-//                console.log(response.data);
-//                this.wuyous = response.data
-//            })
-//
-//            axios.get('http://otc.xyz/api/cex',formData,{
-//                headers: {'X-Requested-With': 'XMLHttpRequest','Access-Control-Allow-Origin':'*'},
-//            }).then(response=>{
-//                console.log(response.data.depth);
-//                this.cexs = response.data.depth
-//            })
-
-
         },
         data(){
             return {
                 loadding: false,
                 otcs : [],
-                cexs : [],
-                wuyous:[]
+                otcsells : [],
             }
+        },
+        created(){
+            this.intervalid1 = setInterval(() => {
+                this.getotc();
+            }, 30000)
         }
     }
 </script>

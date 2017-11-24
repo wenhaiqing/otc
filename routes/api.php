@@ -18,5 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/otc','HomeController@otc');
+Route::get('/otcsell','HomeController@otcsell');
 Route::get('/cex','HomeController@cex');
 Route::get('/wuyou','HomeController@wuyou');

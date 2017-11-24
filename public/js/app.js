@@ -45528,54 +45528,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
-        var _this = this;
+        this.getotc();
+    },
 
-        this.loadding = true;
-        var formData = {
-            crypto_currency: 'OSC',
-            trade_currency: 'CNY',
-            is_buy: false,
-            offset: 0,
-            limit: 8
-        };
-        axios.get('http://otc.xyz/api/otc', formData, {
-            headers: { 'X-Requested-With': 'XMLHttpRequest', 'Access-Control-Allow-Origin': '*' }
-        }).then(function (response) {
-            console.log(response.data);
-            _this.loadding = false;
-            _this.otcs = response.data;
-        });
+    methods: {
+        getotc: function getotc() {
+            var _this = this;
 
-        //            axios.get('http://otc.xyz/api/wuyou',formData,{
-        //                headers: {'X-Requested-With': 'XMLHttpRequest','Access-Control-Allow-Origin':'*'},
-        //            }).then(response=>{
-        //                console.log(response.data);
-        //                this.wuyous = response.data
-        //            })
-        //
-        //            axios.get('http://otc.xyz/api/cex',formData,{
-        //                headers: {'X-Requested-With': 'XMLHttpRequest','Access-Control-Allow-Origin':'*'},
-        //            }).then(response=>{
-        //                console.log(response.data.depth);
-        //                this.cexs = response.data.depth
-        //            })
-
+            this.loadding = true;
+            axios.get('http://otc.xyz/api/otc?s=' + Math.random(), {
+                headers: { 'X-Requested-With': 'XMLHttpRequest', 'Access-Control-Allow-Origin': '*' }
+            }).then(function (response) {
+                //console.log(response.data);
+                _this.loadding = false;
+                _this.otcs = response.data.otc;
+                _this.otcsells = response.data.otcsell;
+            });
+        }
     },
     data: function data() {
         return {
             loadding: false,
             otcs: [],
-            cexs: [],
-            wuyous: []
+            otcsells: []
         };
+    },
+    created: function created() {
+        var _this2 = this;
+
+        this.intervalid1 = setInterval(function () {
+            _this2.getotc();
+        }, 30000);
     }
 });
 
@@ -45588,267 +45574,261 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
-        _c("div", { staticClass: "panel panel-default" }, [
-          _c(
-            "div",
-            {
-              staticClass: "trade_buy",
-              attrs: { "data-v-45e29ae5": "", "data-v-b07140c2": "" }
-            },
-            [
-              _c(
+    _c("div", { staticClass: "row trade_content" }, [
+      _c("div", { staticClass: "left", attrs: { "data-v-b07140c2": "" } }, [
+        _c(
+          "div",
+          {
+            staticClass: "trade_buy",
+            attrs: { "data-v-45e29ae5": "", "data-v-b07140c2": "" }
+          },
+          [
+            _c(
+              "div",
+              {
+                staticClass: "trade_buy_header",
+                attrs: { "data-v-45e29ae5": "" }
+              },
+              [
+                _vm._v(
+                  "\n                       卖方发布\n                    "
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _vm._m(0, false, false),
+            _vm._v(" "),
+            _c("div", {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.loadding,
+                  expression: "loadding"
+                }
+              ],
+              staticClass: "loading"
+            }),
+            _vm._v(" "),
+            _vm._l(_vm.otcs, function(otc) {
+              return _c(
                 "div",
                 {
-                  staticClass: "trade_buy_header",
+                  key: otc.id,
+                  staticClass: "trade_list",
                   attrs: { "data-v-45e29ae5": "" }
                 },
                 [
-                  _vm._v(
-                    "\n                       卖方发布\n                    "
+                  _c(
+                    "div",
+                    {
+                      staticClass: "trade_buy_item el-row",
+                      attrs: { "data-v-45e29ae5": "" }
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "trade_buy_col user el-col el-col-5",
+                          attrs: { "data-v-45e29ae5": "" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(otc.name) +
+                              "\n                            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "trade_buy_col limit el-col el-col-3",
+                          attrs: { "data-v-45e29ae5": "" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(otc.min_qty) +
+                              "-" +
+                              _vm._s(otc.max_qty) +
+                              " OSC\n                            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "trade_buy_col price el-col el-col-3",
+                          attrs: { "data-v-45e29ae5": "" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(otc.price) +
+                              " CNY\n                            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "trade_buy_col button_group el-col el-col-4",
+                          attrs: { "data-v-45e29ae5": "" }
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "buy",
+                              attrs: { "data-v-45e29ae5": "" }
+                            },
+                            [
+                              _c("a", { attrs: { href: otc.url } }, [
+                                _vm._v("购买")
+                              ])
+                            ]
+                          )
+                        ]
+                      )
+                    ]
                   )
                 ]
-              ),
-              _vm._v(" "),
-              _vm._m(0, false, false),
-              _vm._v(" "),
-              _c("div", {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.loadding,
-                    expression: "loadding"
-                  }
-                ],
-                staticClass: "loading"
-              }),
-              _vm._v(" "),
-              _vm._l(_vm.otcs, function(otc) {
-                return _c(
-                  "div",
-                  {
-                    key: otc.id,
-                    staticClass: "trade_list",
-                    attrs: { "data-v-45e29ae5": "" }
-                  },
-                  [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "trade_buy_item el-row",
-                        attrs: { "data-v-45e29ae5": "" }
-                      },
-                      [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "trade_buy_col user el-col el-col-5",
-                            attrs: { "data-v-45e29ae5": "" }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                " +
-                                _vm._s(otc.name) +
-                                "\n                            "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "trade_buy_col limit el-col el-col-3",
-                            attrs: { "data-v-45e29ae5": "" }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                " +
-                                _vm._s(otc.min_qty) +
-                                "-" +
-                                _vm._s(otc.max_qty) +
-                                " OSC\n                            "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "trade_buy_col price el-col el-col-3",
-                            attrs: { "data-v-45e29ae5": "" }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                " +
-                                _vm._s(otc.price) +
-                                " CNY\n                            "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "trade_buy_col button_group el-col el-col-4",
-                            attrs: { "data-v-45e29ae5": "" }
-                          },
-                          [
-                            _c(
-                              "div",
-                              {
-                                staticClass: "buy",
-                                attrs: { "data-v-45e29ae5": "" }
-                              },
-                              [
-                                _c("a", { attrs: { href: otc.url } }, [
-                                  _vm._v("购买")
-                                ])
-                              ]
-                            )
-                          ]
-                        )
-                      ]
-                    )
-                  ]
-                )
-              }),
-              _vm._v(" "),
-              _vm._l(_vm.wuyous, function(wuyou) {
-                return _c(
-                  "div",
-                  {
-                    staticClass: "trade_list",
-                    attrs: { "data-v-45e29ae5": "" }
-                  },
-                  [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "trade_buy_item el-row",
-                        attrs: { "data-v-45e29ae5": "" }
-                      },
-                      [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "trade_buy_col user el-col el-col-5",
-                            attrs: { "data-v-45e29ae5": "" }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                wanke.wylh.cc\n                            "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "trade_buy_col limit el-col el-col-3",
-                            attrs: { "data-v-45e29ae5": "" }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                " +
-                                _vm._s(wuyou[1]) +
-                                " OSC\n                            "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "trade_buy_col price el-col el-col-3",
-                            attrs: { "data-v-45e29ae5": "" }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                " +
-                                _vm._s(wuyou[3]) +
-                                " CNY\n                            "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _vm._m(1, true, false)
-                      ]
-                    )
-                  ]
-                )
-              }),
-              _vm._v(" "),
-              _vm._l(_vm.cexs[1], function(cex) {
-                return _c(
-                  "div",
-                  {
-                    staticClass: "trade_list",
-                    attrs: { "data-v-45e29ae5": "" }
-                  },
-                  [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "trade_buy_item el-row",
-                        attrs: { "data-v-45e29ae5": "" }
-                      },
-                      [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "trade_buy_col user el-col el-col-5",
-                            attrs: { "data-v-45e29ae5": "" }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                cex.com\n                            "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "trade_buy_col limit el-col el-col-3",
-                            attrs: { "data-v-45e29ae5": "" }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                " +
-                                _vm._s(cex.amount) +
-                                " OSC\n                            "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "trade_buy_col price el-col el-col-3",
-                            attrs: { "data-v-45e29ae5": "" }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                " +
-                                _vm._s(cex.price * 6.6125) +
-                                " CNY\n                            "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _vm._m(2, true, false)
-                      ]
-                    )
-                  ]
-                )
-              })
-            ],
-            2
-          )
-        ])
+              )
+            })
+          ],
+          2
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "right", attrs: { "data-v-b07140c2": "" } }, [
+        _c(
+          "div",
+          {
+            staticClass: "trade_sell",
+            attrs: { "data-v-09c9f5fa": "", "data-v-b07140c2": "" }
+          },
+          [
+            _c(
+              "div",
+              {
+                staticClass: "trade_sell_header",
+                attrs: { "data-v-09c9f5fa": "" }
+              },
+              [_vm._v("\n                    买方发布\n                ")]
+            ),
+            _vm._v(" "),
+            _vm._m(1, false, false),
+            _vm._v(" "),
+            _c("div", {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.loadding,
+                  expression: "loadding"
+                }
+              ],
+              staticClass: "loading"
+            }),
+            _vm._v(" "),
+            _vm._l(_vm.otcsells, function(otcsell) {
+              return _c(
+                "div",
+                {
+                  key: otcsell.id,
+                  staticClass: "trade_list",
+                  attrs: { "data-v-45e29ae5": "" }
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "trade_buy_item el-row",
+                      attrs: { "data-v-45e29ae5": "" }
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "trade_buy_col user el-col el-col-5",
+                          attrs: { "data-v-45e29ae5": "" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(otcsell.name) +
+                              "\n                        "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "trade_buy_col limit el-col el-col-3",
+                          attrs: { "data-v-45e29ae5": "" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(otcsell.min_qty) +
+                              "-" +
+                              _vm._s(otcsell.max_qty) +
+                              " OSC\n                        "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "trade_buy_col price el-col el-col-3",
+                          attrs: { "data-v-45e29ae5": "" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(otcsell.price) +
+                              " CNY\n                        "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "trade_buy_col button_group el-col el-col-4",
+                          attrs: { "data-v-45e29ae5": "" }
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "buy",
+                              attrs: { "data-v-45e29ae5": "" }
+                            },
+                            [
+                              _c("a", { attrs: { href: otcsell.url } }, [
+                                _vm._v("出售")
+                              ])
+                            ]
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ]
+              )
+            })
+          ],
+          2
+        )
       ])
     ])
   ])
@@ -45899,34 +45879,35 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "div",
-      {
-        staticClass: "trade_buy_col button_group el-col el-col-4",
-        attrs: { "data-v-45e29ae5": "" }
-      },
+      { staticClass: "trade_sell_title", attrs: { "data-v-09c9f5fa": "" } },
       [
-        _c("div", { staticClass: "buy", attrs: { "data-v-45e29ae5": "" } }, [
+        _c("div", { staticClass: "el-row", attrs: { "data-v-09c9f5fa": "" } }, [
           _c(
-            "a",
-            { attrs: { href: "https://wanke.wylh.cc/order/sell_order" } },
-            [_vm._v("购买")]
+            "div",
+            {
+              staticClass: "trade_sell_title_item user el-col el-col-4",
+              attrs: { "data-v-09c9f5fa": "" }
+            },
+            [_vm._v("用户名")]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "trade_sell_title_item limit el-col el-col-10",
+              attrs: { "data-v-09c9f5fa": "" }
+            },
+            [_vm._v("限额")]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "trade_sell_title_item price el-col el-col-6",
+              attrs: { "data-v-09c9f5fa": "" }
+            },
+            [_vm._v("价格")]
           )
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "trade_buy_col button_group el-col el-col-4",
-        attrs: { "data-v-45e29ae5": "" }
-      },
-      [
-        _c("div", { staticClass: "buy", attrs: { "data-v-45e29ae5": "" } }, [
-          _c("a", { attrs: { href: "https://cex.com" } }, [_vm._v("购买")])
         ])
       ]
     )
