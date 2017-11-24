@@ -85,7 +85,7 @@ class HomeController extends Controller
             ],
             'cookies' =>$jar
         ]);
-        $otcsell = json_decode((string) $response->getBody(), true)['data'];
+        $otcsell = json_decode((string) $response2->getBody(), true)['data'];
         if ($otcsell){
             $otcsell_lists = $otcsell['lists'];
         }
@@ -102,7 +102,7 @@ class HomeController extends Controller
                 $resultsell[$i]['max_qty'] = $ressell[$i]['max_qty'];
                 $resultsell[$i]['price'] = $ressell[$i]['price'];
                 $resultsell[$i]['url'] = 'https://www.firefoxotc.com';
-            }elseif (isset($res[$i]['type'])){
+            }elseif (isset($ressell[$i]['type'])){
                 $resultsell[$i]['name'] = 'cex网';
                 $resultsell[$i]['min_qty'] = 0;
                 $resultsell[$i]['max_qty'] = $ressell[$i]['amount'];
