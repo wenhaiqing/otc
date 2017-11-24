@@ -79,7 +79,7 @@
         methods: {
             getotc(){
                 this.loadding = true;
-                axios.get('http://otc.xyz/api/otc?s='+Math.random(),{
+                axios.get('http://otc.zdxinfo.com/api/otc?s='+Math.random(),{
                     headers: {'X-Requested-With': 'XMLHttpRequest','Access-Control-Allow-Origin':'*'},
                 }).then(response=>{
                     //console.log(response.data);
