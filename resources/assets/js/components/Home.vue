@@ -87,7 +87,7 @@
                 offset:0,
                 limit:8
             }
-            axios.get('http://otc.xyz/api/otc',formData,{
+            axios.get('http://otc.zdxinfo.com/api/otc',formData,{
                 headers: {'X-Requested-With': 'XMLHttpRequest','Access-Control-Allow-Origin':'*'},
             }).then(response=>{
                 console.log(response.data);
