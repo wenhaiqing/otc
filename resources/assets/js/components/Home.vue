@@ -16,6 +16,8 @@
                             </div>
                         </div>
 
+                        <div v-show="loadding" class="loading"></div>
+
                         <div data-v-45e29ae5="" class="trade_list" v-for="otc in otcs" :key="otc.id">
                             <div data-v-45e29ae5="" class="trade_buy_item el-row">
                                 <div data-v-45e29ae5="" class="trade_buy_col user el-col el-col-5">
@@ -28,7 +30,7 @@
                                     {{otc.price}} CNY
                                 </div>
                                 <div data-v-45e29ae5="" class="trade_buy_col button_group el-col el-col-4">
-                                    <div data-v-45e29ae5="" class="buy"><a href="https://otc.firefoxotc.com">购买</a></div>
+                                    <div data-v-45e29ae5="" class="buy"><a :href="otc.url">购买</a></div>
                                 </div>
                             </div>
                         </div>
@@ -85,7 +87,7 @@
                 offset:0,
                 limit:8
             }
-            axios.get('http://otc.zdxinfo.com/api/otc',formData,{
+            axios.get('http://otc.xyz/api/otc',formData,{
                 headers: {'X-Requested-With': 'XMLHttpRequest','Access-Control-Allow-Origin':'*'},
             }).then(response=>{
                 console.log(response.data);
@@ -111,6 +113,7 @@
         },
         data(){
             return {
+                loadding: false,
                 otcs : [],
                 cexs : [],
                 wuyous:[]

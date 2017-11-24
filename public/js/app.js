@@ -45531,6 +45531,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
@@ -45544,7 +45546,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             offset: 0,
             limit: 8
         };
-        axios.get('http://otc.zdxinfo.com/api/otc', formData, {
+        axios.get('http://otc.xyz/api/otc', formData, {
             headers: { 'X-Requested-With': 'XMLHttpRequest', 'Access-Control-Allow-Origin': '*' }
         }).then(function (response) {
             console.log(response.data);
@@ -45569,6 +45571,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     data: function data() {
         return {
+            loadding: false,
             otcs: [],
             cexs: [],
             wuyous: []
@@ -45609,6 +45612,18 @@ var render = function() {
               ),
               _vm._v(" "),
               _vm._m(0, false, false),
+              _vm._v(" "),
+              _c("div", {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.loadding,
+                    expression: "loadding"
+                  }
+                ],
+                staticClass: "loading"
+              }),
               _vm._v(" "),
               _vm._l(_vm.otcs, function(otc) {
                 return _c(
@@ -45673,7 +45688,28 @@ var render = function() {
                           ]
                         ),
                         _vm._v(" "),
-                        _vm._m(1, true, false)
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "trade_buy_col button_group el-col el-col-4",
+                            attrs: { "data-v-45e29ae5": "" }
+                          },
+                          [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "buy",
+                                attrs: { "data-v-45e29ae5": "" }
+                              },
+                              [
+                                _c("a", { attrs: { href: otc.url } }, [
+                                  _vm._v("购买")
+                                ])
+                              ]
+                            )
+                          ]
+                        )
                       ]
                     )
                   ]
@@ -45738,7 +45774,7 @@ var render = function() {
                           ]
                         ),
                         _vm._v(" "),
-                        _vm._m(2, true, false)
+                        _vm._m(1, true, false)
                       ]
                     )
                   ]
@@ -45803,7 +45839,7 @@ var render = function() {
                           ]
                         ),
                         _vm._v(" "),
-                        _vm._m(3, true, false)
+                        _vm._m(2, true, false)
                       ]
                     )
                   ]
@@ -45853,25 +45889,6 @@ var staticRenderFns = [
             },
             [_vm._v("价格")]
           )
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "trade_buy_col button_group el-col el-col-4",
-        attrs: { "data-v-45e29ae5": "" }
-      },
-      [
-        _c("div", { staticClass: "buy", attrs: { "data-v-45e29ae5": "" } }, [
-          _c("a", { attrs: { href: "https://otc.firefoxotc.com" } }, [
-            _vm._v("购买")
-          ])
         ])
       ]
     )
