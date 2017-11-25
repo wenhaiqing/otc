@@ -222,18 +222,18 @@ class HomeController extends Controller
         $response3 = $guzzleClient->post('https://wanke.wylh.cc/login/check_mobile', [
             'form_params' => [
                 'mobile' => '15333619819',
-                'code' => '6534',
-                'photo_code' => 'gubp',
+                'code' => '3788',
+                'photo_code' => 'if2d',
             ],
             'cookies' =>$jar
         ]);
 
-        dd($response3->getBody()->getContents());
+        dump($response3->getBody()->getContents());
 
         $response4 = $goutteClient ->request('get','https://wanke.wylh.cc/order/sell_order?v=0.3'.mt_rand()/mt_getrandmax()*(3.0-0.1));
         dd($response4);
 
-        $response3->filter('tr > td')->each(function ($node,$i) {
+        $response4->filter('tr > td')->each(function ($node,$i) {
             //print $node->text()."\n";
             $this->res[] = $node->text();
         });
