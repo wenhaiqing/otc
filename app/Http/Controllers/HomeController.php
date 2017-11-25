@@ -65,29 +65,16 @@ class HomeController extends Controller
 
         $response3 = $goutteClient ->request('get','https://wanke.wylh.cc/order/sell_order?v=0.3'.mt_rand()/mt_getrandmax()*(3.0-0.1));
 
-        dump($response3);
         $response3->filter('tr > td')->each(function ($node,$i) {
             //print $node->text()."\n";
             $this->res[] = $node->text();
         });
         $resultwuyou = $this->res;
-        dump($resultwuyou);
         for($i=0;$i<8;$i++)
         {
             $bbb[] = array_slice($resultwuyou, $i * 5 ,5);
         }
-        for ($i=0;$i<8;$i++){
-            $arr = $bbb[$i];
-            dump($arr);
-            if (is_array($arr)){
-                foreach ($arr as $k=>$v){
-                    dump($k);dump($v);exit;
-                }
-            }
 
-        }
-
-        dd($bbb);
         $res = array_merge($otc_lists,$cex_lists,$bbb);
 
         for ($i=0;$i<count($res);$i++){
@@ -104,11 +91,11 @@ class HomeController extends Controller
                 $result[$i]['price'] = $res[$i]['price']*6.6125;
                 $result[$i]['url'] = 'https://cex.com/market/wkc_usdt';
             }else{
-                $result[$i]['name'] = '无忧网';
-                $result[$i]['min_qty'] = 0;
-                $result[$i]['max_qty'] = $res[$i][1];
-                $result[$i]['price'] = $res[$i][3];
-                $result[$i]['url'] = 'https://wanke.wylh.cc/order/sell_order';
+//                $result[$i]['name'] = '无忧网';
+//                $result[$i]['min_qty'] = 0;
+//                $result[$i]['max_qty'] = $res[$i][1];
+//                $result[$i]['price'] = $res[$i][3];
+//                $result[$i]['url'] = 'https://wanke.wylh.cc/order/sell_order';
 
             }
         }
@@ -173,11 +160,11 @@ class HomeController extends Controller
                 $resultsell[$i]['price'] = $ressell[$i]['price']*6.6125;
                 $resultsell[$i]['url'] = 'https://cex.com/market/wkc_usdt';
             }else{
-                $resultsell[$i]['name'] = '无忧网';
-                $resultsell[$i]['min_qty'] = 0;
-                $resultsell[$i]['max_qty'] = $ressell[$i][1];
-                $resultsell[$i]['price'] = $ressell[$i][3];
-                $resultsell[$i]['url'] = 'https://wanke.wylh.cc/order';
+//                $resultsell[$i]['name'] = '无忧网';
+//                $resultsell[$i]['min_qty'] = 0;
+//                $resultsell[$i]['max_qty'] = $ressell[$i][1];
+//                $resultsell[$i]['price'] = $ressell[$i][3];
+//                $resultsell[$i]['url'] = 'https://wanke.wylh.cc/order';
             }
         }
 
@@ -231,18 +218,17 @@ class HomeController extends Controller
         $goutteClient->setClient($guzzleClient);
         $goutteClient ->setHeader('cookie',':wanke_cuc=c3c5792aa86ed298abfd57a99f0da3ae; wanke=06497e816ff2b19d50830f54675a1252; pgv_pvi=2628343808; pgv_si=s2473972736; al_tanchuang=5');
 
-        $response = $goutteClient ->request('get','https://wanke.wylh.cc/order/sell_order');
+        $response3 = $goutteClient ->request('get','https://wanke.wylh.cc/order/sell_order?v=0.3'.mt_rand()/mt_getrandmax()*(3.0-0.1));
 
-        $response->filter('tr > td')->each(function ($node,$i) {
+        $response3->filter('tr > td')->each(function ($node,$i) {
             //print $node->text()."\n";
             $this->res[] = $node->text();
         });
-        $result = $this->res;
+        $resultwuyou = $this->res;
         for($i=0;$i<8;$i++)
         {
-            $bbb[] = array_slice($result, $i * 5 ,5);
+            $bbb[] = array_slice($resultwuyou, $i * 5 ,5);
         }
-        dd($bbb);
         return $bbb;
     }
 }
