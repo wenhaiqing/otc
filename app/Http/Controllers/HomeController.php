@@ -76,6 +76,7 @@ class HomeController extends Controller
         }
         for ($i=0;$i<8;$i++){
             $arr = $bbb[$i];
+            dump($arr);
             if (is_array($arr)){
                 foreach ($arr as $k=>$v){
                     dump($k);dump($v);exit;
