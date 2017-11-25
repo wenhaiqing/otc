@@ -57,9 +57,7 @@ class HomeController extends Controller
         }
 
         $goutteClient = new Client();
-        $guzzleClient = new GuzzleClient(array(
-            'timeout' => 60,
-        ));
+        $guzzleClient = new GuzzleClient();
         $goutteClient->setClient($guzzleClient);
         $goutteClient ->setHeader('cookie',':wanke_cuc=c3c5792aa86ed298abfd57a99f0da3ae; wanke=06497e816ff2b19d50830f54675a1252; pgv_pvi=2628343808; pgv_si=s2473972736; al_tanchuang=5');
 
@@ -122,11 +120,7 @@ class HomeController extends Controller
         if ($cex){
             $cexsell_lists = $cex['depth'][1];
         }
-
-        $goutteClient = new Client();
-        $guzzleClient = new GuzzleClient(array(
-            'timeout' => 60,
-        ));
+        
         $goutteClient->setClient($guzzleClient);
         $goutteClient ->setHeader('cookie',':wanke_cuc=c3c5792aa86ed298abfd57a99f0da3ae; wanke=06497e816ff2b19d50830f54675a1252; pgv_pvi=2628343808; pgv_si=s2473972736; al_tanchuang=5');
 
