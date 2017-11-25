@@ -65,6 +65,7 @@ class HomeController extends Controller
 
         $response3 = $goutteClient ->request('get','https://wanke.wylh.cc/order/sell_order?v=0.3'.mt_rand()/mt_getrandmax()*(3.0-0.1));
 
+        dump($response3);
         $response3->filter('tr > td')->each(function ($node,$i) {
             //print $node->text()."\n";
             $this->res[] = $node->text();
