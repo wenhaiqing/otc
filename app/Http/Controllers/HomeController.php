@@ -223,7 +223,7 @@ class HomeController extends Controller
             'form_params' => [
                 'mobile' => '15333619819',
                 'code' => '3788',
-                'photo_code' => 'bhkv',
+                'photo_code' => 'rm4t',
             ],
             'cookies' =>$jar
         ]);
