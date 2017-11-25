@@ -74,6 +74,12 @@ class HomeController extends Controller
         {
             $bbb[] = array_slice($resultwuyou, $i * 5 ,5);
         }
+        for ($i=0;$i<8;$i++){
+            $bbb[$i]['num'] = $bbb[$i][1];
+            $bbb[$i]['price'] = $bbb[$i][3];
+        }
+
+        dd($bbb);
         $res = array_merge($otc_lists,$cex_lists,$bbb);
 
         for ($i=0;$i<count($res);$i++){
