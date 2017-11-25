@@ -75,8 +75,9 @@ class HomeController extends Controller
             $bbb[] = array_slice($resultwuyou, $i * 5 ,5);
         }
         for ($i=0;$i<8;$i++){
-            $bbb[$i]['num'] = $bbb[$i][1];
-            $bbb[$i]['price'] = $bbb[$i][3];
+            $arr = $bbb[$i];
+
+            dd($arr[0]);
         }
 
         dd($bbb);
