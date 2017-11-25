@@ -219,11 +219,17 @@ class HomeController extends Controller
         $jar = new \GuzzleHttp\Cookie\CookieJar();
         //$goutteClient ->setHeader('cookie',':wanke_cuc=c3c5792aa86ed298abfd57a99f0da3ae; wanke=06497e816ff2b19d50830f54675a1252; pgv_pvi=2628343808; pgv_si=s2473972736; al_tanchuang=5');
 
+//        $response5 = $guzzleClient->get('https://wanke.wylh.cc/utils/login_code',[
+//            'cookies' =>$jar
+//        ]);
+//
+//        dump($response5->getBody()->getContents());
+
         $response3 = $guzzleClient->post('https://wanke.wylh.cc/login/check_mobile', [
             'form_params' => [
                 'mobile' => '15333619819',
                 'code' => '3788',
-                'photo_code' => 'rm4t',
+                'photo_code' => 'udbg',
             ],
             'cookies' =>$jar
         ]);
