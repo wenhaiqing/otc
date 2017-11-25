@@ -70,6 +70,7 @@ class HomeController extends Controller
             $this->res[] = $node->text();
         });
         $resultwuyou = $this->res;
+        dump($resultwuyou);
         for($i=0;$i<8;$i++)
         {
             $bbb[] = array_slice($resultwuyou, $i * 5 ,5);
