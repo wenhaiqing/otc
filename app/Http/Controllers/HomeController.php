@@ -216,9 +216,22 @@ class HomeController extends Controller
             'timeout' => 60,
         ));
         $goutteClient->setClient($guzzleClient);
-        $goutteClient ->setHeader('cookie',':wanke_cuc=c3c5792aa86ed298abfd57a99f0da3ae; wanke=06497e816ff2b19d50830f54675a1252; pgv_pvi=2628343808; pgv_si=s2473972736; al_tanchuang=5');
+        $jar = new \GuzzleHttp\Cookie\CookieJar();
+        //$goutteClient ->setHeader('cookie',':wanke_cuc=c3c5792aa86ed298abfd57a99f0da3ae; wanke=06497e816ff2b19d50830f54675a1252; pgv_pvi=2628343808; pgv_si=s2473972736; al_tanchuang=5');
 
-        $response3 = $goutteClient ->request('get','https://wanke.wylh.cc/order/sell_order?v=0.3'.mt_rand()/mt_getrandmax()*(3.0-0.1));
+        $response3 = $guzzleClient->post('https://wanke.wylh.cc/login/check_mobile', [
+            'form_params' => [
+                'mobile' => '15333619819',
+                'code' => '6534',
+                'photo_code' => 'gubp',
+            ],
+            'cookies' =>$jar
+        ]);
+
+        dd($response3->getBody()->getContents());
+
+        $response4 = $goutteClient ->request('get','https://wanke.wylh.cc/order/sell_order?v=0.3'.mt_rand()/mt_getrandmax()*(3.0-0.1));
+        dd($response4);
 
         $response3->filter('tr > td')->each(function ($node,$i) {
             //print $node->text()."\n";
