@@ -56,26 +56,26 @@ class HomeController extends Controller
             $cex_lists = $cex['depth'][2];
         }
 
-        $goutteClient = new Client();
-        $guzzleClient = new GuzzleClient(array(
-            'timeout' => 60,
-        ));
-        $goutteClient->setClient($guzzleClient);
-        $goutteClient ->setHeader('cookie',':wanke_cuc=c3c5792aa86ed298abfd57a99f0da3ae; wanke=06497e816ff2b19d50830f54675a1252; pgv_pvi=2628343808; pgv_si=s2473972736; al_tanchuang=5');
+//        $goutteClient = new Client();
+//        $guzzleClient = new GuzzleClient(array(
+//            'timeout' => 60,
+//        ));
+//        $goutteClient->setClient($guzzleClient);
+//        $goutteClient ->setHeader('cookie',':wanke_cuc=c3c5792aa86ed298abfd57a99f0da3ae; wanke=06497e816ff2b19d50830f54675a1252; pgv_pvi=2628343808; pgv_si=s2473972736; al_tanchuang=5');
+//
+//        $response3 = $goutteClient ->request('get','https://wanke.wylh.cc/order/sell_order?v=0.3'.mt_rand()/mt_getrandmax()*(3.0-0.1));
+//
+//        $response3->filter('tr > td')->each(function ($node,$i) {
+//            //print $node->text()."\n";
+//            $this->res[] = $node->text();
+//        });
+//        $resultwuyou = $this->res;
+//        for($i=0;$i<8;$i++)
+//        {
+//            $bbb[] = array_slice($resultwuyou, $i * 5 ,5);
+//        }
 
-        $response3 = $goutteClient ->request('get','https://wanke.wylh.cc/order/sell_order?v=0.3'.mt_rand()/mt_getrandmax()*(3.0-0.1));
-
-        $response3->filter('tr > td')->each(function ($node,$i) {
-            //print $node->text()."\n";
-            $this->res[] = $node->text();
-        });
-        $resultwuyou = $this->res;
-        for($i=0;$i<8;$i++)
-        {
-            $bbb[] = array_slice($resultwuyou, $i * 5 ,5);
-        }
-
-        $res = array_merge($otc_lists,$cex_lists,$bbb);
+        $res = array_merge($otc_lists,$cex_lists);
 
         for ($i=0;$i<count($res);$i++){
             if (isset($res[$i]['id'])){
@@ -124,26 +124,26 @@ class HomeController extends Controller
             $cexsell_lists = $cex['depth'][1];
         }
 
-        $goutteClient = new Client();
-        $guzzleClient = new GuzzleClient(array(
-            'timeout' => 60,
-        ));
-        $goutteClient->setClient($guzzleClient);
-        $goutteClient ->setHeader('cookie',':wanke_cuc=c3c5792aa86ed298abfd57a99f0da3ae; wanke=06497e816ff2b19d50830f54675a1252; pgv_pvi=2628343808; pgv_si=s2473972736; al_tanchuang=5');
+//        $goutteClient = new Client();
+//        $guzzleClient = new GuzzleClient(array(
+//            'timeout' => 60,
+//        ));
+//        $goutteClient->setClient($guzzleClient);
+//        $goutteClient ->setHeader('cookie',':wanke_cuc=c3c5792aa86ed298abfd57a99f0da3ae; wanke=06497e816ff2b19d50830f54675a1252; pgv_pvi=2628343808; pgv_si=s2473972736; al_tanchuang=5');
+//
+//        $response4 = $goutteClient ->request('get','https://wanke.wylh.cc/order?v=0.3'.mt_rand()/mt_getrandmax()*(3.0-0.1));
+//
+//        $response4->filter('tr > td')->each(function ($node,$i) {
+//            //print $node->text()."\n";
+//            $this->ressell[] = $node->text();
+//        });
+//        $resultwuyousell = $this->ressell;
+//        for($i=0;$i<8;$i++)
+//        {
+//            $bbbsell[] = array_slice($resultwuyousell, $i * 5 ,5);
+//        }
 
-        $response4 = $goutteClient ->request('get','https://wanke.wylh.cc/order?v=0.3'.mt_rand()/mt_getrandmax()*(3.0-0.1));
-
-        $response4->filter('tr > td')->each(function ($node,$i) {
-            //print $node->text()."\n";
-            $this->ressell[] = $node->text();
-        });
-        $resultwuyousell = $this->ressell;
-        for($i=0;$i<8;$i++)
-        {
-            $bbbsell[] = array_slice($resultwuyousell, $i * 5 ,5);
-        }
-
-        $ressell = array_merge($otcsell_lists,$cexsell_lists,$bbbsell);
+        $ressell = array_merge($otcsell_lists,$cexsell_lists);
 
 
         for ($i=0;$i<count($ressell);$i++){
@@ -217,7 +217,7 @@ class HomeController extends Controller
         ));
         $goutteClient->setClient($guzzleClient);
         $jar = new \GuzzleHttp\Cookie\CookieJar();
-        //$goutteClient ->setHeader('cookie',':wanke_cuc=c3c5792aa86ed298abfd57a99f0da3ae; wanke=06497e816ff2b19d50830f54675a1252; pgv_pvi=2628343808; pgv_si=s2473972736; al_tanchuang=5');
+        $goutteClient ->setHeader('cookie',':wanke_cuc=c3c5792aa86ed298abfd57a99f0da3ae; wanke=06497e816ff2b19d50830f54675a1252; pgv_pvi=2628343808; pgv_si=s2473972736; al_tanchuang=5');
 
         $response5 = $guzzleClient->get('https://wanke.wylh.cc/utils/login_code',[
             'cookies' =>$jar
@@ -229,7 +229,7 @@ class HomeController extends Controller
             'form_params' => [
                 'mobile' => '15333619819',
                 'code' => '3788',
-                'photo_code' => 'udbg',
+                'photo_code' => 'gj56',
             ],
             'cookies' =>$jar
         ]);
